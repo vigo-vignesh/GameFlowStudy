@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GridManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class GridManager : MonoBehaviour
     private int coulmnCount;
     [SerializeField]
     private float cellSize;
+
+    public Image gameBG;
 
     public int[,] gridConainer;
 
@@ -25,6 +28,9 @@ public class GridManager : MonoBehaviour
         this.rowCount = height;
         this.coulmnCount = width;
 
+        transform.GetComponent<GridLayoutGroup>().constraintCount = coulmnCount;
+
+
         gridConainer = new int[height, width];
 
         for (int i = 0; i < height; i++)
@@ -33,7 +39,7 @@ public class GridManager : MonoBehaviour
             {
                 Debug.Log(i + " , " + j);
 
-                GameObject GridObj = Instantiate(GameManager.instance.GridElementTemplate) as GameObject;
+                GameObject GridObj = Instantiate(GameManager.instance._GridElementManager.gameObject) as GameObject;
                 GridObj.transform.parent = transform;
                 GridObj.transform.localScale = Vector3.one;
                 GridObj.SetActive(true);
