@@ -9,4 +9,12 @@ public class GridElementManager : MonoBehaviour
     public Image GridElementCover;
     public Image GridElementSpecialBg;
     public Image GridElement;
+
+    public int GridElementID;
+    public void OpenElement()
+    {
+        GridElementCover.gameObject.SetActive(false);
+
+        StartCoroutine(GameManager.instance.ValidateAnswer(gameObject));
+    }
 }

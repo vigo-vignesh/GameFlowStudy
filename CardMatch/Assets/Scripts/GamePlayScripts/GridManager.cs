@@ -5,23 +5,21 @@ using UnityEngine.UI;
 
 public class GridManager : MonoBehaviour
 {
-    [SerializeField]
-    [Range(2f, 4f)]
-    private int rowCount;
-    [SerializeField]
-    [Range(2f, 4f)]
-    private int coulmnCount;
+    public int rowCount;
+
+    public int coulmnCount;
+
     [SerializeField]
     private float cellSize;
 
     public Image gameBG;
+    public List<Sprite> questionElementSprites;
 
-    public int[,] gridConainer;
+    public List<Sprite> pickedQuestion;
 
-    private void Start()
-    {
-        GenerateGrid(rowCount, coulmnCount);
-    }
+    public List<GameObject> questionsGenerated = new List<GameObject>();
+
+    public int questionCount;
 
     public void GenerateGrid(int height, int width)
     {
@@ -30,23 +28,87 @@ public class GridManager : MonoBehaviour
 
         transform.GetComponent<GridLayoutGroup>().constraintCount = coulmnCount;
 
-
-        gridConainer = new int[height, width];
+        reshuffle(questionElementSprites);
+        questionCount = questionElementSprites.Count;
+        pickQuestion(questionCount);
 
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
             {
-                Debug.Log(i + " , " + j);
+                //Debug.Log(i + " , " + j);
+                //Debug.Log("i % 2 " + (i % 2) + " , j % 2 " + (j % 2));
 
                 GameObject GridObj = Instantiate(GameManager.instance._GridElementManager.gameObject) as GameObject;
                 GridObj.transform.parent = transform;
                 GridObj.transform.localScale = Vector3.one;
                 GridObj.SetActive(true);
+
+                //GridObj.GetComponent<GridElementManager>().GridElementCover.gameObject.SetActive(false);
+
+                questionsGenerated.Add(GridObj);
             }
+        }
+
+        SetQuestions();
+    }
+
+    void SetQuestions()
+    {
+        Debug.Log("questionCount " + transform.childCount);
+
+        for (int i = 0; i < transform.childCount / 2; i++)
+        {
+            switch (i)
+            {
+                case 0:
+                    for (int j = 0; j < coulmnCount; j++)
+                    {
+                        Debug.Log("Expect i " + i);
+                        Debug.Log("Expect j " + j);
+
+                        questionsGenerated[i + j].GetComponent<GridElementManager>().GridElementID = j;
+                        questionsGenerated[i + j].GetComponent<GridElementManager>().GridElement.sprite = pickedQuestion[j];
+                    }
+                    break;
+                case 1:
+                    for (int j = 0; j < coulmnCount; j++)
+                    {
+                        Debug.Log("Expect i " + i);
+                        Debug.Log("Expect j " + j);
+
+                        questionsGenerated[j + coulmnCount].GetComponent<GridElementManager>().GridElementID = j;
+                        questionsGenerated[j + coulmnCount].GetComponent<GridElementManager>().GridElement.sprite = pickedQuestion[j];
+                    }
+                    break;
+                case 2:
+                    break;
+                default:
+                    break;
+            }
+
+
+            
         }
 
     }
 
+    void reshuffle(List<Sprite> elementSprites)
+    {
+        for (int t = 0; t < elementSprites.Count; t++)
+        {
+            Sprite tmp = elementSprites[t];
+            int r = Random.Range(t, elementSprites.Count);
+            elementSprites[t] = elementSprites[r];
+            elementSprites[r] = tmp;
+        }
+    }
 
+    void pickQuestion(int questionCount)
+    {
+        for (int i = 0; i < questionCount; i++)
+        {
+            pickedQuestion.Add(questionElementSprites[i]);
+        }
+    }
 }
