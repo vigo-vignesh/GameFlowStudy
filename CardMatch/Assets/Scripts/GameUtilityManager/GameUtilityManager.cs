@@ -25,6 +25,17 @@ public class GameUtilityManager : MonoBehaviour
     public GameLevel _gameLevel;
 
     public string sceneName;
+
+    public int currentScore;
+    public int HighScore;
+
+    public int currentMoves;
+
+
+    private void OnEnable()
+    {
+        
+    }
 }
 
 public enum GameLevel

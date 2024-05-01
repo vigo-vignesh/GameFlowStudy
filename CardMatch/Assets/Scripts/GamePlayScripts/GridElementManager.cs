@@ -34,4 +34,10 @@ public class GridElementManager : MonoBehaviour
     {
         GridElementCover.gameObject.SetActive(false);
     }
+
+    public void CloseGridElement()
+    {
+        GridElementBg.gameObject.SetActive(false);
+        GridElementCover.gameObject.SetActive(false);
+    }
 }
