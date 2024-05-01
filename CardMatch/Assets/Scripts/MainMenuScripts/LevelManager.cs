@@ -23,7 +23,7 @@ public class LevelManager : MonoBehaviour
                 break;
         }
 
-        SceneManager.LoadScene(GameUtilityManager.instance.sceneName);
+        SceneManager.LoadScene(GameUtilityManager.instance.gameSceneName);
     }
 
     public void BackButtonAction()

@@ -1,3 +1,7 @@
+/*
+ * This script is responsible for handling Menu related operations
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

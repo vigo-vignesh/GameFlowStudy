@@ -1,3 +1,7 @@
+/*
+ * This script is responsible for handling game Grid operations
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
