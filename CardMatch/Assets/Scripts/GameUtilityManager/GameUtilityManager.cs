@@ -23,6 +23,8 @@ public class GameUtilityManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
     public GameLevel _gameLevel;
+
+    public string sceneName;
 }
 
 public enum GameLevel
