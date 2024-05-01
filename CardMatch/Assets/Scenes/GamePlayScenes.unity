@@ -1292,6 +1292,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameLevel: 3
   sceneName: 
+  currentScore: 0
+  HighScore: 0
+  currentMoves: 0
 --- !u!1 &863526082
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,6 +1387,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dcb2f1558704ac4f853a05c902ac0aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreText: {fileID: 2124350296}
+  movesTex: {fileID: 626529310}
+  HighScoreText: {fileID: 0}
 --- !u!1 &883162529
 GameObject:
   m_ObjectHideFlags: 0
@@ -2009,7 +2015,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _GridElementManager: {fileID: 1428867066}
-  _GameOverManager: {fileID: 0}
+  _GameOverManager: {fileID: 863526086}
   GridContainers:
   - rowCount: 2
     coulmnCount: 2

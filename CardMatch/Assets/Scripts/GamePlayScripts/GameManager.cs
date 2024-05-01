@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     public AudioSource wrongAudio;
     public AudioSource gameOverAudio;
 
-
+    private int questionIndex;
     private void OnEnable()
     {
         GameInitState();
@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
 
     void GameInitState()
     {
+        questionIndex = 0;
         scoreNum = 0;
         movesNum = 0;
 
@@ -103,8 +104,20 @@ public class GameManager : MonoBehaviour
 
                 correctAudio.Play();
 
-                validationTest.SetActive(false);
-                tempObjHolder.SetActive(false);
+                validationTest.GetComponent<GridElementManager>().CloseGridElement();
+                tempObjHolder.GetComponent<GridElementManager>().CloseGridElement();
+
+                questionIndex += 1;
+                if (questionIndex == _GridContainers.elementSprites.Count)
+                {
+                    gameOverAudio.Play();
+
+                    GameUtilityManager.instance.currentScore = scoreNum;
+                    GameUtilityManager.instance.currentMoves = movesNum;
+
+                    _GameOverManager.gameObject.SetActive(true);
+                }
+                //tempObjHolder.SetActive(false);
             }
             else
             {
