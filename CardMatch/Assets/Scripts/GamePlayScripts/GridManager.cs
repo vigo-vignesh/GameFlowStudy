@@ -42,6 +42,8 @@ public class GridManager : MonoBehaviour
 
                 GridObj.SetActive(true);
 
+               // GridObj.transform.GetComponent<GridElementManager>().GridElementCover.gameObject.SetActive(false);
+
                 questionsGenerated.Add(GridObj);
             }
         }
@@ -53,7 +55,7 @@ public class GridManager : MonoBehaviour
     {
         Debug.Log("questionCount " + transform.childCount);
 
-        for (int i = 0; i < transform.childCount / 2; i++)
+        for (int i = 0; i < questionCount / 2; i++)
         {
             switch (i)
             {
@@ -78,13 +80,23 @@ public class GridManager : MonoBehaviour
                     }
                     break;
                 case 2:
-                    for (int j = 0; j < coulmnCount; j++)
+                    for (int j = coulmnCount; j < (coulmnCount * 2); j++)
                     {
                         Debug.Log("Expect i " + i);
                         Debug.Log("Expect j " + j);
 
                         questionsGenerated[j + coulmnCount].GetComponent<GridElementManager>().GridElementID = j;
                         questionsGenerated[j + coulmnCount].GetComponent<GridElementManager>().GridElement.sprite = pickedQuestion[j];
+                    }
+                    break;
+                case 3:
+                    for (int j = coulmnCount; j < (coulmnCount * 2); j++)
+                    {
+                        Debug.Log("Expect i " + i);
+                        Debug.Log("Expect j " + j);
+
+                        questionsGenerated[j + coulmnCount * 2].GetComponent<GridElementManager>().GridElementID = j;
+                        questionsGenerated[j + coulmnCount * 2].GetComponent<GridElementManager>().GridElement.sprite = pickedQuestion[j];
                     }
                     break;
                 default:
