@@ -36,15 +36,11 @@ public class GridManager : MonoBehaviour
         {
             for (int j = 0; j < width; j++)
             {
-                //Debug.Log(i + " , " + j);
-                //Debug.Log("i % 2 " + (i % 2) + " , j % 2 " + (j % 2));
-
                 GameObject GridObj = Instantiate(GameManager.instance._GridElementManager.gameObject) as GameObject;
                 GridObj.transform.parent = transform;
                 GridObj.transform.localScale = Vector3.one;
-                GridObj.SetActive(true);
 
-                //GridObj.GetComponent<GridElementManager>().GridElementCover.gameObject.SetActive(false);
+                GridObj.SetActive(true);
 
                 questionsGenerated.Add(GridObj);
             }
@@ -82,13 +78,19 @@ public class GridManager : MonoBehaviour
                     }
                     break;
                 case 2:
+                    for (int j = 0; j < coulmnCount; j++)
+                    {
+                        Debug.Log("Expect i " + i);
+                        Debug.Log("Expect j " + j);
+
+                        questionsGenerated[j + coulmnCount].GetComponent<GridElementManager>().GridElementID = j;
+                        questionsGenerated[j + coulmnCount].GetComponent<GridElementManager>().GridElement.sprite = pickedQuestion[j];
+                    }
                     break;
                 default:
                     break;
             }
 
-
-            
         }
 
     }

@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     }
 
     public GridElementManager _GridElementManager;
+    public GameOverManager _GameOverManager;
 
     public List<GridContainers> GridContainers = new List<GridContainers>();
 
@@ -41,6 +42,12 @@ public class GameManager : MonoBehaviour
     public int scoreNum = 0;
     public int movesNum = 0;
     public int combos = 0;
+
+    public AudioSource flipAudio;
+    public AudioSource correctAudio;
+    public AudioSource wrongAudio;
+    public AudioSource gameOverAudio;
+
 
     private void OnEnable()
     {
@@ -94,15 +101,25 @@ public class GameManager : MonoBehaviour
                 scoreText.text = scoreNum.ToString();
                 Debug.Log("Correct");
 
+                correctAudio.Play();
+
                 validationTest.SetActive(false);
                 tempObjHolder.SetActive(false);
             }
             else
             {
+                wrongAudio.Play();
+
                 Debug.Log("wrong");
                 yield return new WaitForSeconds(1f);
+                validationTest.GetComponent<GridElementManager>().CloseCard();
                 validationTest.GetComponent<GridElementManager>().GridElementCover.gameObject.SetActive(true);
-                tempObjHolder.GetComponent<GridElementManager>().GridElementCover.gameObject.SetActive(true);
+
+                if (tempObjHolder != null)
+                {
+                    tempObjHolder.GetComponent<GridElementManager>().CloseCard();
+                    tempObjHolder.GetComponent<GridElementManager>().GridElementCover.gameObject.SetActive(true);
+                }
             }
 
             tempObjHolder = null;
