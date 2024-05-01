@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -34,6 +35,13 @@ public class GameManager : MonoBehaviour
 
     public List<GameObject> validationObj = new List<GameObject>();
 
+    public TMP_Text scoreText;
+    public TMP_Text scoreMovesText;
+
+    public int scoreNum = 0;
+    public int movesNum = 0;
+    public int combos = 0;
+
     private void OnEnable()
     {
         GameInitState();
@@ -41,6 +49,12 @@ public class GameManager : MonoBehaviour
 
     void GameInitState()
     {
+        scoreNum = 0;
+        movesNum = 0;
+
+        scoreText.text = scoreNum.ToString();
+        scoreMovesText.text = movesNum.ToString();
+
         _GridContainers = GridContainers[(int)GameUtilityManager.instance._gameLevel];
         SetGameEnvironment();
     }
@@ -65,6 +79,9 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator ValidateAnswer(GameObject validationTest)
     {
+        movesNum += 1;
+        scoreMovesText.text = movesNum.ToString();
+
         if (tempObjHolder == null)
         {
             tempObjHolder = validationTest;
@@ -73,7 +90,12 @@ public class GameManager : MonoBehaviour
         {
             if (validationTest.GetComponent<GridElementManager>().GridElementID == tempObjHolder.GetComponent<GridElementManager>().GridElementID)
             {
+                scoreNum += 10;
+                scoreText.text = scoreNum.ToString();
                 Debug.Log("Correct");
+
+                validationTest.SetActive(false);
+                tempObjHolder.SetActive(false);
             }
             else
             {
@@ -81,7 +103,6 @@ public class GameManager : MonoBehaviour
                 yield return new WaitForSeconds(1f);
                 validationTest.GetComponent<GridElementManager>().GridElementCover.gameObject.SetActive(true);
                 tempObjHolder.GetComponent<GridElementManager>().GridElementCover.gameObject.SetActive(true);
-
             }
 
             tempObjHolder = null;
@@ -96,8 +117,6 @@ public class GridContainers
 
     [Range(2f, 6f)]
     public int coulmnCount;
-
-
 
     public string levelName;
     public Sprite gameTypeBg;
