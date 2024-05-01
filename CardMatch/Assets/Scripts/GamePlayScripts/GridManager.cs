@@ -55,7 +55,7 @@ public class GridManager : MonoBehaviour
     {
         Debug.Log("questionCount " + transform.childCount);
 
-        for (int i = 0; i < questionCount / 2; i++)
+        for (int i = 0; i < transform.childCount / 2; i++)
         {
             switch (i)
             {

@@ -1,3 +1,7 @@
+/*
+ * This script is responsible for handling game related operations
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;

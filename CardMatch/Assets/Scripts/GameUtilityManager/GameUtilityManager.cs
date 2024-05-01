@@ -1,3 +1,8 @@
+/*
+ * This script is responsible for handling game related common fields
+ */
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +29,8 @@ public class GameUtilityManager : MonoBehaviour
     }
     public GameLevel _gameLevel;
 
-    public string sceneName;
+    public string gameSceneName = "GamePlayScenes";
+    public string menuSceneName = "MainMenuScene";
 
     public int currentScore;
     public int HighScore;
@@ -34,14 +40,19 @@ public class GameUtilityManager : MonoBehaviour
 
     private void OnEnable()
     {
-        
+        HighScore = PlayerPrefs.GetInt("HighScore");
+    }
+
+    public void LoadHighScore()
+    {
+        PlayerPrefs.SetInt("HighScore", HighScore);
     }
 }
 
 public enum GameLevel
 {
     LEVEL_1,
-    LEVEL_2, 
+    LEVEL_2,
     LEVEL_3,
     LEVEL_4
 }
